@@ -74,7 +74,7 @@ def squeeze(value):
 
 def url_escape(value):
     """Returns a valid URL-encoded version of the given value."""
-    return urllib_parse.quote_plus(utf8(value))
+    return urllib_parse.quote_plus(value)
 
 
 def url_unescape(value, encoding='utf-8'):
@@ -85,10 +85,7 @@ def url_unescape(value, encoding='utf-8'):
     If encoding is None, the result will be a byte string.  Otherwise,
     the result is a unicode string in the specified encoding.
     """
-    if encoding is None:
-        return urllib_parse.unquote_plus(utf8(value))
-    else:
-        return str(urllib_parse.unquote_plus(utf8(value)), encoding)
+    return urllib_parse.unquote_plus(value)
 
 
 parse_qs_bytes = urllib_parse.parse_qs
@@ -270,8 +267,7 @@ def linkify(text, shorten=False, extra_params="",
                     # have a status bar, such as Safari by default)
                     params += ' title="%s"' % href
 
-        return ('<a href="%s"%s>%s</a>'.decode("unicode_escape") %
-                (href, params, url))
+        return '<a href="%s"%s>%s</a>' % (href, params, url)
 
     # First HTML-escape so that our strings are all safe.
     # The regex is modified to avoid character entites other than &amp; so

@@ -190,7 +190,7 @@ def fetch(url, *args, **kwargs):
                         port string as second member;
                         describing which proxy to use when making request
     """
-    return HTTPClient(escape.utf8(url), *args, **kwargs).fetch()
+    return HTTPClient(url, *args, **kwargs).fetch()
 
 
 class JsonRPC:

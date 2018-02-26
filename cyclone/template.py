@@ -196,8 +196,6 @@ import re
 import sys
 import threading
 import traceback
-import types
-
 from io import StringIO
 from cyclone import escape
 from cyclone.util import ObjectDict
@@ -235,8 +233,7 @@ class Template(object):
             self.file = _File(self, _parse(reader, self))
             self.code = self._generate_python(loader, compress_whitespace)
         except ParseError as e:
-            raise TemplateError("Error parsing template %s, line %d: %s" %
-                                                (name, reader.line, str(e)))
+            raise TemplateError("Error parsing template %s, line %d: %s" %(name, reader.line, str(e)))
 
         self.loader = loader
         try:
@@ -285,9 +282,8 @@ class Template(object):
                 if isinstance(rv, Failure):
                     rv.raiseException()
             return rv
-        except:
-            raise TemplateError("Error executing template " + self.name +
-            ":\n" + _format_code(traceback.format_exception(*sys.exc_info())))
+        except Exception:
+            raise TemplateError("Error executing template " + self.name + ":\n" + _format_code(traceback.format_exception(*sys.exc_info())))
 
     def _generate_python(self, loader, compress_whitespace):
         buffer = StringIO()
@@ -553,8 +549,7 @@ class _ApplyBlock(_Node):
             writer.write_line("_append = _buffer.append", self.line)
             self.body.generate(writer)
             writer.write_line("return _utf8('').join(_buffer)", self.line)
-        writer.write_line("_append(_utf8(%s(%s())))" % (
-            self.method, method_name), self.line)
+        writer.write_line("_append(_utf8(%s(%s())))" % (self.method, method_name), self.line)
 
 
 class _ControlBlock(_Node):
@@ -582,8 +577,7 @@ class _IntermediateControlBlock(_Node):
     def generate(self, writer):
         # In case the previous block was empty
         writer.write_line("pass", self.line)
-        writer.write_line("%s:" % self.statement, self.line,
-                          writer.indent_size() - 1)
+        writer.write_line("%s:" % self.statement, self.line, writer.indent_size() - 1)
 
 
 class _Statement(_Node):

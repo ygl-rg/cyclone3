@@ -164,7 +164,7 @@ def sendmail(mailconf, message):
         d = mail.sendmail(mailconf, msg)
         d.addCallback(on_response)
     """
-    if not isinstance(mailconf, types.DictType):
+    if not isinstance(mailconf, dict):
         raise TypeError("mailconf must be a regular python dictionary")
 
     if not isinstance(message, Message):

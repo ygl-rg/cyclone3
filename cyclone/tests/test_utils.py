@@ -21,7 +21,7 @@ from cyclone.escape import squeeze, url_escape, url_unescape
 from cyclone.escape import utf8, to_unicode, to_basestring
 from cyclone.escape import recursive_unicode, linkify, _convert_entity
 from cyclone.util import _emit, ObjectDict, import_object
-from mock import Mock
+from unittest.mock import Mock
 import datetime
 
 
@@ -57,8 +57,8 @@ class EscapeTest(unittest.TestCase):
         self.assertEqual(url_unescape("a+value"), "a value")
 
     def test_utf8(self):
-        self.assertEqual(utf8("rawr"), "rawr")
-        self.assertEqual(utf8(u"rawr"), "rawr")
+        self.assertEqual(utf8("rawr"), b"rawr")
+        self.assertEqual(utf8(u"rawr"), b"rawr")
 
     def test_to_unicode(self):
         self.assertEqual(to_unicode("rawr"), u"rawr")

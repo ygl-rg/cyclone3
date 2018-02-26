@@ -15,7 +15,7 @@
 
 from twisted.trial import unittest
 from cyclone.sqlite import InlineSQLite
-from mock import Mock
+from unittest.mock import Mock
 
 
 class InlineSQLiteTest(unittest.TestCase):

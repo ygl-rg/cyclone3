@@ -301,9 +301,9 @@ class RequestHandler(object):
 
     def _convert_header_value(self, value):
         if isinstance(value, bytes_type):
-            pass
+            value = value.decode('utf-8')
         elif isinstance(value, unicode_type):
-            value = value.encode("utf-8")
+            pass
         elif isinstance(value, numbers.Integral):
             # return immediately since we know the converted value will be safe
             return str(value)
@@ -427,7 +427,7 @@ class RequestHandler(object):
 
     def clear_all_cookies(self):
         """Deletes all the cookies the user sent with this request."""
-        for name in self.request.cookies.iterkeys():
+        for name in self.request.cookies.keys():
             self.clear_cookie(name)
 
     def set_secure_cookie(self, name, value, expires_days=30, **kwargs):
@@ -485,17 +485,17 @@ class RequestHandler(object):
         if status is None:
             status = 301 if permanent else 302
         else:
-            assert isinstance(status, types.IntType) and 300 <= status <= 399
+            assert isinstance(status, int) and 300 <= status <= 399
         self.set_status(status)
         # Remove whitespace
-        url = re.sub(r"[\x00-\x20]+", "", utf8(url))
+        url = re.sub(r"[\x00-\x20]+", "", url)
         if not self.request.uri.startswith('/'):
             request_uri = ''
         if self.request.uri.startswith('//'):
             request_uri = ''
         else:
             request_uri = self.request.uri
-        self.set_header("Location", urllib_parse.urljoin(utf8(request_uri), url))
+        self.set_header("Location", urllib_parse.urljoin(request_uri, url))
         self.finish()
 
     def write(self, chunk):
@@ -514,6 +514,7 @@ class RequestHandler(object):
         http://haacked.com/archive/2008/11/20/\
             anatomy-of-a-subtle-json-vulnerability.aspx
         """
+
         if self._finished:
             raise RuntimeError("Cannot write() after finish().  May be caused "
                                "by using async operations without the "
@@ -682,7 +683,7 @@ class RequestHandler(object):
 
     def flush(self, include_footers=False):
         """Flushes the current output buffer to the network."""
-        chunk = "".join(self._write_buffer)
+        chunk = b"".join(self._write_buffer)
         self._write_buffer = []
 
         if not self._headers_written:
@@ -695,7 +696,7 @@ class RequestHandler(object):
         else:
             for transform in self._transforms:  # pragma: no cover
                 chunk = transform.transform_chunk(chunk, include_footers)
-            headers = ""
+            headers = b""
 
         # Ignore the chunk and only write the headers for HEAD requests
         if self.request.method == "HEAD":
@@ -1120,7 +1121,7 @@ class RequestHandler(object):
     def _deferred_handler(self, function, *args, **kwargs):
         try:
             result = function(*args, **kwargs)
-        except:
+        except Exception as e:
             return defer.fail(failure.Failure(
                               captureVars=defer.Deferred.debug))
         else:
@@ -1144,8 +1145,7 @@ class RequestHandler(object):
     def _execute_handler(self, r, args, kwargs):
         if not self._finished:
             args = [self.decode_argument(arg) for arg in args]
-            kwargs = dict((k, self.decode_argument(v, name=k))
-                            for (k, v) in kwargs.iteritems())
+            kwargs = dict((k, self.decode_argument(v, name=k)) for (k, v) in kwargs.items())
             function = getattr(self, self.request.method.lower(), self.default)
             d = self._deferred_handler(function, *args, **kwargs)
             d.addCallbacks(self._execute_success, self._execute_failure)
@@ -1163,12 +1163,11 @@ class RequestHandler(object):
         lines = [utf8(self.request.version + " " +
                       str(self._status_code) +
                       " " + reason)]
-        lines.extend([(utf8(n) + ": " + utf8(v)) for n, v in
-                  itertools.chain(self._headers.items(), self._list_headers)])
+        lines.extend([(utf8(n) + b": " + utf8(v)) for n, v in itertools.chain(self._headers.items(), self._list_headers)])
         if hasattr(self, "_new_cookie"):
             for cookie in self._new_cookie.values():
                 lines.append(utf8("Set-Cookie: " + cookie.OutputString(None)))
-        return "\r\n".join(lines) + "\r\n\r\n"
+        return b"\r\n".join(lines) + b"\r\n\r\n"
 
     def _log(self):
         """Logs the current request.
@@ -1482,11 +1481,11 @@ class Application(protocol.ServerFactory):
         if isinstance(modules, types.ModuleType):
             self._load_ui_modules(dict((n, getattr(modules, n))
                                        for n in dir(modules)))
-        elif isinstance(modules, types.ListType):
+        elif isinstance(modules, list):
             for m in modules:
                 self._load_ui_modules(m)
         else:
-            assert isinstance(modules, types.DictType)
+            assert isinstance(modules, dict)
             for name, cls in modules.items():
                 try:
                     if issubclass(cls, UIModule):
@@ -1515,7 +1514,7 @@ class Application(protocol.ServerFactory):
                         def unquote(s):
                             if s is None:
                                 return s
-                            return escape.url_unescape(s, encoding=None)
+                            return escape.url_unescape(s)
                         # Pass matched groups to the handler.  Since
                         # match.groups() includes both named and
                         # unnamed groups,we want to use either groups
@@ -2164,7 +2163,7 @@ class URLSpec(object):
         if kwargs:
             items = list(kwargs.items())
             items.sort(key=lambda el: el[0])
-            rv += "?" + urllib.urlencode(items)
+            rv += "?" + urllib_parse.urlencode(items)
         return rv
 
 url = URLSpec
