@@ -1,0 +1,3 @@
+mock
+twisted>=12.0
+pyopenssl

@@ -1,0 +1,1 @@
+web: python $modname/main.py foobar.conf

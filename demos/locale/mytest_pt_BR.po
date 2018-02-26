@@ -1,0 +1,50 @@
+# cyclone locale demo
+# Copyright (C) 2010 Alexandre Fiori
+# This file is distributed under the same license as the cyclone package.
+# Alexandre Fiori <fiorix@gmail.com>, 2010
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-20 12:19-0200\n"
+"PO-Revision-Date: 2010-01-20 12:21-0300\n"
+"Last-Translator: Alexandre Fiori <fiorix@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=n != 1;\n"
+
+#: localedemo.py:76
+msgid "hello world"
+msgstr "olá mundo"
+
+#: frontend/template/hello.txt:2
+#, python-format
+msgid "%s, translated"
+msgstr "%s, traduzido"
+
+#: frontend/template/index.html:5 frontend/template/index.html:25
+msgid "cyclone locale demo"
+msgstr "demonstração de internacionalização do cyclone"
+
+#: frontend/template/index.html:29
+msgid "Please select your language:"
+msgstr "Por favor, selecione sua língua:"
+
+#: frontend/template/index.html:35
+msgid "How many apples?"
+msgstr "Quantas maçãs?"
+
+#: frontend/template/index.html:39
+msgid "Submit"
+msgstr "Enviar"
+
+#: frontend/template/index.html:42
+#, python-format
+msgid "One apple"
+msgid_plural "%(count)d apples"
+msgstr[0] "Uma maçã"
+msgstr[1] "%(count)d maçãs"

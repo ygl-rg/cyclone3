@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block header %}
+<style>
+  body {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+  }
+
+  .form-custom {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  }
+  .form-custom .form-custom-heading,
+  .form-custom .checkbox {
+    margin-bottom: 10px;
+  }
+  .form-custom input[type="text"],
+  .form-custom input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+  }
+</style>
+{% end %}
+
+{% block scripts %}
+<script>
+$$(document).ready(function(){
+  $$("#email").focus();
+  $$("#email").keypress(function (e){
+    if (e.which == 13) {
+      $$("form").submit();
+      return false;
+    }
+  });
+});
+</script>
+{% end %}
+
+{% block page %}
+<div class="masthead">
+  <ul class="nav nav-pills pull-right">
+    <li><a href="/">{{_("Home")}}</a></li>
+    <li><a href="/signin">{{_("Sign in")}}</a></li>
+  </ul>
+  <h3 class="muted">$modname</h3>
+</div>
+
+<hr>
+
+<form class="form-custom" method="post">
+  <h2 class="form-custom-heading">{{_("Reset password")}}</h2>
+  <input type="text" class="input-block-level" placeholder="{{_('Email address')}}" name="email" id="email" value="{{fields.email or ''}}">
+  {% if fields.err and "email" in fields.err %}
+    <div class="alert alert-error">{{_("Invalid email address")}}<a class="close" data-dismiss="alert">×</a></div>
+  {% elif fields.err and "notfound" in fields.err %}
+    <div class="alert alert-error">{{_("Email address not registered")}}<a class="close" data-dismiss="alert">×</a></div>
+  {% elif fields.err and "pending" in fields.err %}
+    <div class="alert alert-error">{{_("This account is pending confirmation")}}<a class="close" data-dismiss="alert">×</a></div>
+  {% elif fields.err and "send" in fields.err %}
+    <div class="alert alert-error">{{_("Please try again later")}}<a class="close" data-dismiss="alert">×</a></div>
+  {% end %}
+  <button class="btn btn-large btn-primary" type="submit">{{_("Send")}}</button>
+</form>
+{% end %}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://yandex.st/jquery/1.7.1/jquery.min.js"></script>
+  <script src="http://yandex.st/jquery/flot/0.7/jquery.flot.min.js"></script>
+  <script>
+    $(document).ready(function() {
+        updater.start();
+    });
+
+    $(document).unload(function() {
+    });
+
+    updater = {
+        socket: null,
+
+        plot: null,
+        visits: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        chatters: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        points: 10,
+
+        options: {
+            legend: { show: true }
+        },
+
+        start: function() {
+            if ("WebSocket" in window) {
+                socket = new WebSocket("ws://localhost:8888/statssocket");
+            } else {
+                socket = new MozWebSocket("ws://localhost:8888/statssocket");
+            }
+            socket.onmessage = function(event) {
+                data = JSON.parse(event.data);
+                updater.update_plot(data);
+            }
+            updater.plot = $.plot($('#placeholder'),
+                                  [ updater.visits, updater.chatters ],
+                                  updater.options);
+        },
+
+        append_data: function(visits, chatters) {
+            if (updater.visits.length > updater.points) {
+                updater.visits = updater.visits.slice(1);
+                updater.chatters = updater.chatters.slice(1);
+            }
+            updater.visits.push(visits);
+            updater.chatters.push(chatters);
+        },
+
+        prepare_data: function(arr) {
+            var len = arr.length;
+            var res = [];
+            for (var i=0; i < len; i++) {
+                res.push([i, arr[i]]);
+            }
+            return res;
+        },
+
+        update_plot: function(data) {
+            updater.append_data(data.visits, data.chatters);
+            var visits = updater.prepare_data(updater.visits);
+            var chatters = updater.prepare_data(updater.chatters);
+            updater.plot = $.plot($('#placeholder'),
+                                  [ {label: 'Global visits', data: visits},
+                                    {label: 'Active users', data: chatters}
+                                  ], updater.options);
+        },
+
+        plot: function(visits, chatters) {
+        },
+
+        stop: function() {
+            updater.socket.close();
+            updater.socket = null;
+        }
+    };
+  </script>
+<title> Site statistics </title>
+</head>
+<body>
+  <div>
+   <div id="placeholder" style="width:920px;height:400px;float:left;"></div>
+   <div id="table"></div>
+  </div>
+</body>
+</html>
+

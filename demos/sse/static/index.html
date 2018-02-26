@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style type="text/css">
+    body {
+      font-family: sans-serif;
+    }
+    #console {
+      width: 900px;
+      height: 440px;
+      background-color: black;
+      font-family: courier;
+      color: white;
+    }
+    small {
+      color: #ccc;
+      font-size: .5em;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <h1>Episode IV <small>Live from towel.blinkenlights.nl</small></h1>
+    <pre id="console"></pre>
+  </center>
+
+  <script>
+    var source = new EventSource('/live');
+    source.onmessage = function(e) {
+      document.getElementById("console").innerHTML = e.data;
+      //console.log(e.data);
+    };
+  </script>
+</body>
+</html>

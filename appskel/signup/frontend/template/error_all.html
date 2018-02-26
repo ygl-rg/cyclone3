@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block header %}
+<style>
+  body {
+    padding-top: 20px;
+    padding-bottom: 40px;
+  }
+
+  .container {
+    margin: 0 auto;
+    max-width: 900px;
+  }
+  .container > hr {
+    margin: 30px 0;
+  }
+
+  .jumbotron {
+    margin: 60px 0;
+    text-align: left;
+  }
+  .jumbotron h1 {
+    font-size: 72px;
+    line-height: 1;
+  }
+</style>
+{% end %}
+
+{% block page %}
+<div class="jumbotron">
+  <h1>Oooops!</h1>
+  <p class="lead">{{"HTTP %s: %s" % (fields["code"], fields["message"])}}</p>
+
+  {% if "exception" in fields and handler.settings.debug is True %}
+    <p>Debug:</p>
+    <pre>{{escape(str(fields["exception"]))}}</pre>
+  {% end %}
+<hr>
+
+<div class="footer">
+  <p>&copy; Company 2012</p>
+</div>
+
+{% end %}

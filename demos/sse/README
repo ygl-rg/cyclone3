@@ -1,0 +1,8 @@
+Server Sent Events Demo
+
+SSE is a mechanism akin to comet but with fine grained control over the data. You can name events, send structured and partial data and set the proper timeout.
+
+To understand better, check http://www.html5rocks.com/en/tutorials/eventsource/basics/
+
+The client side gets really simple than controlling a COMET resource using js, by using the window.EventSource object.
+

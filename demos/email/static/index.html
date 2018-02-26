@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>cyclone email demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <h1>cyclone email demo</h1>
+      <br>
+
+      <form class="well" method="post" action="/sendmail">
+        <label>To:</label>
+        <input type="text" class="span4" name="to_addrs" placeholder="Email">
+        <span class="help-inline">List of destination addresses, separated by comma</span>
+
+        <label>Subject:</label>
+        <input type="text" class="span4" name="subject">
+
+        <label>Message:</label>
+        <textarea class="input-xlarge span4" rows="4" name="message"></textarea>
+
+        <fieldset class="form-horizontal">
+          <div class="control-group">
+            <label class="control-label" for="content_type">Content type</label>
+            <div class="controls">
+              <label class="radio">
+                <input type="radio" name="content_type" value="text/plain">
+                text/plain
+              </label>
+              <label class="radio">
+                <input type="radio" name="content_type" value="text/html" checked>
+                text/html
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

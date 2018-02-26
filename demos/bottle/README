@@ -1,0 +1,19 @@
+This is a complete cyclone.bottle demo.
+For a basic hello world, check out the helloworld_bottle.py demo.
+
+The idea is to show how easy it is to create simple bottle-like apps, and
+still capture all the functionality such as database support, setting
+a parent class (the BaseHandler) for your request handlers and integrating with
+other types of handlers such as XmlRPC and WebSocket.
+
+The authentication mechanism is similar to the one used in
+httpauthdemo_redis.py and require that the "cyclone:user" key exists in redis.
+
+Basically, run the redis server and use the redis client to set up a fake
+user account:
+
+  $ redis-cli set cyclone:root 123
+
+Then authenticate yourself at http://localhost:8888 as root/123.
+
+XmlRPC functionality can be tested by executing the xmlrpc_client.py.

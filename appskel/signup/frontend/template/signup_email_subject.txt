@@ -1,0 +1,1 @@
+$modname: {{_("Sign up confirmation")}}

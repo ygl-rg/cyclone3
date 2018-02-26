@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{_("cyclone locale demo")}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {padding-top: 60px;}
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <h1>{{_("cyclone locale demo")}}</h1>
+      <br>
+
+      <form class="well" method="post" action="/">
+        <label>{{_("Please select your language:")}}</label>
+        <select name="lang" class="span2">
+          {% for lang in languages %}
+            <option {% if lang == locale %}selected{% end %}>{{lang}}</option>
+          {% end %}
+        </select>
+        <label>{{_("How many apples?")}}</label>
+        <input type="text" class="span2" name="apples" value="{{apples}}">
+
+        <br>
+        <button type="submit" class="btn btn-success">{{_("Submit")}}</button>
+      </form>
+
+      <p>{{_("One apple", "%(count)d apples", apples) % {"count":apples} }}</p>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

@@ -1,0 +1,17 @@
+Source: python-cyclone
+Section: python
+Priority: extra
+Maintainer: Rodrigo Sampaio Vaz <rodrigo.vaz@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), python-setuptools
+Standards-Version: 3.9.2
+Homepage: http://cyclone.io
+Vcs-Git: git://github.com/fiorix/cyclone.git
+
+Package: python-cyclone
+Architecture: any
+Depends: python-twisted-core, python-twisted-web, python-twisted-mail
+Description: cyclone is a clone of facebook's tornado, on top of twisted.
+ cyclone is a web framework based on tornado, but designed to run on top of
+ the most popular and stable event-driven framework for python, twisted.
+ It implements HTTP 1.1 and supports many protocols, such as WebSocket and SSE,
+ as well as SSL.

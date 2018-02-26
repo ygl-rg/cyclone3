@@ -1,0 +1,210 @@
+# cyclone signup template.
+# Copyright (C) 2012 cyclone
+# This file is distributed under the same license as the cyclone package.
+# Alexandre Fiori <fiorix@gmail.com>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-11 23:20-0500\n"
+"PO-Revision-Date: 2012-12-12 00:00:00+0500\n"
+"Last-Translator: Alexandre Fiori <fiorix@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: standard input:36
+msgid "Account settings"
+msgstr "Datos de la conta"
+
+#: standard input:37
+msgid "Name"
+msgstr "Nombre"
+
+#: standard input:39
+msgid "Password"
+msgstr "Contraseña"
+
+#: standard input:45
+msgid "Invalid name"
+msgstr "Nombra inválido"
+
+#: standard input:47
+msgid "Invalid password"
+msgstr "Contraseña inválida"
+
+#: standard input:49
+msgid "Passwords don't match"
+msgstr "Las contraseñas no coinciden"
+
+#: standard input:53
+msgid "Saved!"
+msgstr "Guardado!"
+
+#: standard input:55
+msgid "Update"
+msgstr "Actualizar"
+
+#: standard input:84
+msgid "Dashboard"
+msgstr "Tablero"
+
+#: standard input:90
+msgid "Account"
+msgstr "Cuenta"
+
+#: standard input:92
+msgid "Language"
+msgstr "Idioma"
+
+#: standard input:100
+msgid "Sign out"
+msgstr "Cerrar"
+
+#: standard input:139
+msgid "Bootstrap starter template"
+msgstr "Template inicial de Bootstrap"
+
+#: standard input:140
+msgid ""
+"Use this document as a way to quick start any new project.<br> All you get "
+"is this message and a barebones HTML document."
+msgstr ""
+"Utilice este documento para cualquier nuevo proyecto como una forma de "
+"de inicio rápido.<br> Solo tiene es este mensaje y un documento básico HTML."
+
+#: standard input:246 standard input:352 standard input:430 standard input:504
+#: standard input:580 standard input:665
+msgid "Home"
+msgstr "Inicio"
+
+#: standard input:247 standard input:353 standard input:431 standard input:505
+#: standard input:513 standard input:522 standard input:581 standard input:666
+msgid "Sign in"
+msgstr "Entrar"
+
+#: standard input:255
+msgid "Super awesome marketing speak!"
+msgstr "Hablar de marketing impressionante!"
+
+#: standard input:257
+msgid "Sign up today"
+msgstr "Inscríbase hoy"
+
+#: standard input:361
+msgid "Reset password"
+msgstr "Restablecer contraseña"
+
+#: standard input:366 standard input:594
+msgid "Invalid email address"
+msgstr "Correo electrónico no válido"
+
+#: standard input:368
+msgid "Email address not registered"
+msgstr "Correo electrónico no registrada"
+
+#: standard input:370 standard input:598
+msgid "Please try again later"
+msgstr "Por favor inténtelo más tarde"
+
+#: standard input:374
+msgid "Send"
+msgstr "Enviar"
+
+#: standard input:386
+msgid "New password"
+msgstr "Nueva contraseña"
+
+#: standard input:387
+msgid ""
+"Your password has been reset, and must be used to reactivate the account "
+"within 24 hours."
+msgstr ""
+"La contraseña se ha restablecido y debe utilizarse para reactivar la cuenta "
+"dentro de 24 horas."
+
+#: standard input:388
+msgid "Here's the new password:"
+msgstr "Aquí está la nueva contraseña:"
+
+#: standard input:391 standard input:625
+#, python-format
+msgid "Requested by IP %s on %s"
+msgstr "Solicitado por IP %s en %s"
+
+#: standard input:440 standard input:675
+#, python-format
+msgid "A confirmation email has been sent to <b>%s</b> with instructions."
+msgstr "Ha enviado un email de confirmación a <b>%s</b> con instrucciones."
+
+#: standard input:517
+msgid "Invalid email or password"
+msgstr "Correo electrónico o contraseña no válida"
+
+#: standard input:520
+msgid "Remember me"
+msgstr "Recuerde"
+
+#: standard input:523
+msgid "Forgot password?"
+msgstr "¿Olvidó la contraseña?"
+
+#: standard input:589 standard input:608
+msgid "Sign up"
+msgstr "Registrarse"
+
+#: standard input:596
+msgid "Email already registered"
+msgstr "Correo electrónico registrado"
+
+#: standard input:603
+msgid "I agree with the "
+msgstr "Estoy de acuerdo con los "
+
+#: standard input:603
+msgid "Terms of Service"
+msgstr "Términos de Servicio"
+
+#: standard input:606
+msgid "Please accept the Terms of Service"
+msgstr "Por favor, acepte los Términos de Servicio"
+
+#: standard input:620
+msgid "Welcome!"
+msgstr "¡Bienvenido!"
+
+#: standard input:621
+msgid "Your account has been created, and must be activated within 24 hours."
+msgstr "Su cuenta ha sido creada y debe activarse dentro de 24 horas."
+
+#: standard input:622
+msgid "Here's your password:"
+msgstr "Aquí está la contraseña:"
+
+#: misc
+msgid "Full name"
+msgstr "Nombre completo"
+
+msgid "Email address"
+msgstr "Correo electrónico"
+
+msgid "Confirm"
+msgstr "Confirmación"
+
+msgid "Sign up confirmation"
+msgstr "Confirmación de registro"
+
+msgid "Password reset"
+msgstr "Nueva contraseña"
+
+msgid "Old password"
+msgstr "Contraseña anterior"
+
+msgid "This field is mandatory"
+msgstr "Este campo es obligatorio"
+
+msgid "This account is pending confirmation"
+msgstr "Esta cuenta está pendiente de confirmación"

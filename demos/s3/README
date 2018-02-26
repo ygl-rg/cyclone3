@@ -1,0 +1,19 @@
+Port of http://github.com/facebook/tornado/raw/master/tornado/s3server.py (s3 clone on tornado)
+TODO:
+- plug auth module
+- plug riak, redis or another storage besides FS
+- be awesome.
+
+
+
+RUNNING
+$ twistd -ny se.tac
+
+TESTING:
+create bucket: $ curl --request PUT "http://localhost:4000/meh/"
+
+put some data (README file): curl --data "@README" --request PUT --header "Content-Type: text/plain" "http://localhost:4000/meh/README"
+
+retrieve: curl http://localhost:4000/meh/README
+
+

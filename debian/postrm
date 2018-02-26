@@ -1,0 +1,8 @@
+#! /bin/sh
+
+set -e
+for p in $(pyversions -i); do
+  rm -f /usr/lib/${p}/dist-packages/twisted/plugins/cyclone* &> /dev/null
+done
+
+exit 0

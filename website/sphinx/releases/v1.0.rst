@@ -1,0 +1,20 @@
+What's new in Cyclone 1.0
+=========================
+
+December 31, 2012
+-----------------
+
+::
+
+    We are pleased to announce the release of Cyclone 1.0, available
+    from https://github.com/fiorix/cyclone/tags.
+
+    * New set of application skeletons
+    * PEP8 compliance
+    * Documentation
+    * Synch with latest txredisapi
+
+    Many thanks to everyone who contributed patches, bug reports, and
+    feedback that went into this release!
+
+    -AF

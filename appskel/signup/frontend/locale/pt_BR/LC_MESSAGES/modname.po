@@ -1,0 +1,210 @@
+# cyclone signup template.
+# Copyright (C) 2012 cyclone
+# This file is distributed under the same license as the cyclone package.
+# Alexandre Fiori <fiorix@gmail.com>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-11 23:20-0500\n"
+"PO-Revision-Date: 2012-12-12 00:00:00+0500\n"
+"Last-Translator: Alexandre Fiori <fiorix@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: standard input:36
+msgid "Account settings"
+msgstr "Dados da conta"
+
+#: standard input:37
+msgid "Name"
+msgstr "Nome"
+
+#: standard input:39
+msgid "Password"
+msgstr "Senha"
+
+#: standard input:45
+msgid "Invalid name"
+msgstr "Nome inválido"
+
+#: standard input:47
+msgid "Invalid password"
+msgstr "Senha inválida"
+
+#: standard input:49
+msgid "Passwords don't match"
+msgstr "As senhas não coincidem"
+
+#: standard input:53
+msgid "Saved!"
+msgstr "Gravado!"
+
+#: standard input:55
+msgid "Update"
+msgstr "Atualizar"
+
+#: standard input:84
+msgid "Dashboard"
+msgstr "Painel"
+
+#: standard input:90
+msgid "Account"
+msgstr "Conta"
+
+#: standard input:92
+msgid "Language"
+msgstr "Idioma"
+
+#: standard input:100
+msgid "Sign out"
+msgstr "Sair"
+
+#: standard input:139
+msgid "Bootstrap starter template"
+msgstr "Template inicial do Bootstrap"
+
+#: standard input:140
+msgid ""
+"Use this document as a way to quick start any new project.<br> All you get "
+"is this message and a barebones HTML document."
+msgstr ""
+"Use este documento para iniciar qualquer novo projeto rapidamente.<br> Tudo "
+"que há nele é esta mensagem e um documento HTML puro."
+
+#: standard input:246 standard input:352 standard input:430 standard input:504
+#: standard input:580 standard input:665
+msgid "Home"
+msgstr "Início"
+
+#: standard input:247 standard input:353 standard input:431 standard input:505
+#: standard input:513 standard input:522 standard input:581 standard input:666
+msgid "Sign in"
+msgstr "Entrar"
+
+#: standard input:255
+msgid "Super awesome marketing speak!"
+msgstr "Linguagem de marketing impressionante!"
+
+#: standard input:257
+msgid "Sign up today"
+msgstr "Cadastre-se hoje"
+
+#: standard input:361
+msgid "Reset password"
+msgstr "Reiniciar a senha"
+
+#: standard input:366 standard input:594
+msgid "Invalid email address"
+msgstr "Endereço de email inválido"
+
+#: standard input:368
+msgid "Email address not registered"
+msgstr "Endereço de email não registrado"
+
+#: standard input:370 standard input:598
+msgid "Please try again later"
+msgstr "Por favor tente novamente mais tarde"
+
+#: standard input:374
+msgid "Send"
+msgstr "Enviar"
+
+#: standard input:386
+msgid "New password"
+msgstr "Nova senha"
+
+#: standard input:387
+msgid ""
+"Your password has been reset, and must be used to reactivate the account "
+"within 24 hours."
+msgstr ""
+"Sua senha foi reiniciada, e deve ser usada para reativar a conta em até "
+"24 horas."
+
+#: standard input:388
+msgid "Here's the new password:"
+msgstr "Aqui está sua nova senha:"
+
+#: standard input:391 standard input:625
+#, python-format
+msgid "Requested by IP %s on %s"
+msgstr "Solicitado por IP %s em %s"
+
+#: standard input:440 standard input:675
+#, python-format
+msgid "A confirmation email has been sent to <b>%s</b> with instructions."
+msgstr "Um email de confirmação foi enviado para <b>%s</b> com instruções."
+
+#: standard input:517
+msgid "Invalid email or password"
+msgstr "Endereço de email ou senha inválidos"
+
+#: standard input:520
+msgid "Remember me"
+msgstr "Lembre-me"
+
+#: standard input:523
+msgid "Forgot password?"
+msgstr "Esqueceu a senha?"
+
+#: standard input:589 standard input:608
+msgid "Sign up"
+msgstr "Cadastre-se"
+
+#: standard input:596
+msgid "Email already registered"
+msgstr "Email já registrado"
+
+#: standard input:603
+msgid "I agree with the "
+msgstr "Eu concordo com os "
+
+#: standard input:603
+msgid "Terms of Service"
+msgstr "Termos de Serviço"
+
+#: standard input:606
+msgid "Please accept the Terms of Service"
+msgstr "Por favor aceite os Termos de Serviço"
+
+#: standard input:620
+msgid "Welcome!"
+msgstr "Bem vindo!"
+
+#: standard input:621
+msgid "Your account has been created, and must be activated within 24 hours."
+msgstr "Sua conta foi criada, e deve ser ativada em até 24 horas."
+
+#: standard input:622
+msgid "Here's your password:"
+msgstr "Aqui está sua senha:"
+
+#: misc
+msgid "Full name"
+msgstr "Nome completo"
+
+msgid "Email address"
+msgstr "Endereço de email"
+
+msgid "Confirm"
+msgstr "Confirmação"
+
+msgid "Sign up confirmation"
+msgstr "Confirmação de registro"
+
+msgid "Password reset"
+msgstr "Nova senha"
+
+msgid "Old password"
+msgstr "Senha antiga"
+
+msgid "This field is mandatory"
+msgstr "Este campo é obrigatório"
+
+msgid "This account is pending confirmation"
+msgstr "Esta conta está pendente de confirmação"
