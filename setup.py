@@ -21,26 +21,25 @@ from distutils import log
 from distutils.version import LooseVersion
 from distutils.version import StrictVersion
 
-requires = ["twisted"]
+requires = ["twisted", "pyopenssl"]
 
 
 # Avoid installation problems on old RedHat distributions (ex. CentOS 5)
 # http://stackoverflow.com/questions/7340784/easy-install-pyopenssl-error
 py_version = platform.python_version()
-if LooseVersion(py_version) < StrictVersion('2.6'):
-    distname, version, _id = platform.dist()
-else:
-    distname, version, _id = platform.linux_distribution()
+#if LooseVersion(py_version) < StrictVersion('2.6'):
+#    distname, version, _id = platform.dist()
+#else:
+#    distname, version, _id = platform.linux_distribution()
 
-is_redhat = distname in ["CentOS", "redhat"]
-if is_redhat and version and StrictVersion(version) < StrictVersion('6.0'):
-    requires.append("pyopenssl==0.12")
-else:
-    requires.append("pyopenssl")
-
+#is_redhat = distname in ["CentOS", "redhat"]
+#if is_redhat and version and StrictVersion(version) < StrictVersion('6.0'):
+#    requires.append("pyopenssl==0.12")
+#else:
+#    requires.append("pyopenssl")
 
 # PyPy and setuptools don't get along too well, yet.
-if sys.subversion[0].lower().startswith("pypy"):
+if platform.python_implementation().lower().startswith("pypy"):
     import distutils.core
     setup = distutils.core.setup
     extra = dict(extras_require={'ssl': requires})
@@ -77,7 +76,7 @@ else:
 
 setup(
     name="cyclone",
-    version="git-2015052801",
+    version="git-2018022801",
     author="fiorix",
     author_email="fiorix@gmail.com",
     url="http://cyclone.io/",
