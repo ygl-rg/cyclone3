@@ -19,7 +19,7 @@ from cyclone.httputil import HTTPHeaders
 import urllib
 from twisted.test import proto_helpers
 from twisted.internet.defer import inlineCallbacks, returnValue
-from Cookie import SimpleCookie
+from http.cookies import SimpleCookie
 
 
 class DecodingSimpleCookie(SimpleCookie):
@@ -115,14 +115,14 @@ class Client(object):
 
         def setup_response():
             headers = HTTPHeaders()
-            for line in handler._generate_headers().split("\r\n"):
-                if line.startswith("HTTP") or not line.strip():
+            for line in handler._generate_headers().split(b"\r\n"):
+                if line.startswith(b"HTTP") or not line.strip():
                     continue
                 headers.parse_line(line)
             for cookie in headers.get_list("Set-Cookie"):
                 self.cookies.load(cookie)
             response_body = connection.transport.io.getvalue()
-            handler.content = response_body.split("\r\n\r\n", 1)[1]
+            handler.content = response_body.split(b"\r\n\r\n", 1)[1]
             handler.headers = headers
 
         if handler._finished:
