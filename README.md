@@ -1,5 +1,17 @@
 Cyclone
 =======
+
+Note: This cyclone version is for python 3 only (tested on python 3.5 & 3.6), so it is incompatible with python 2.x.
+
+Status: all tests passed, so it ought to work (I have used it in production for a few days without problems)
+
+For the sake of simplicity, I removed the redis module (a.k.a texredisapi) which is quite outdated. 
+
+Welecome to fork.
+
+&nbsp;
+
+
 Cyclone is a web server framework for Python, that implements the Tornado API
 as a Twisted protocol.
 
