@@ -7,6 +7,8 @@ Status: all tests passed, so it ought to work (I have used it in production for 
 
 For the sake of simplicity, I removed the redis module (a.k.a texredisapi) which is quite outdated. 
 
+Due to websocket lacks test cases, so It should work.
+
 Welecome to fork.
 
 &nbsp;
