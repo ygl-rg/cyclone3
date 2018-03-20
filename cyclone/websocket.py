@@ -30,7 +30,7 @@ import struct
 
 import cyclone
 import cyclone.web
-import cyclone.escape
+from cyclone import escape as cyclone_escape
 
 from twisted.python import log
 
@@ -108,10 +108,9 @@ class WebSocketHandler(cyclone.web.RequestHandler):
         encoded as json).
         """
         if isinstance(message, dict):
-            message = cyclone.escape.json_encode(message)
-        if isinstance(message, str):
-            message = message.encode("utf-8")
-        assert isinstance(message, str)
+            message = cyclone_escape.json_encode(message)
+        message = cyclone_escape.utf8(message)
+        assert isinstance(message, bytes)
         self.ws_protocol.sendMessage(message)
 
     def _rawDataReceived(self, data):
@@ -131,7 +130,7 @@ class WebSocketHandler(cyclone.web.RequestHandler):
             self.request.headers['Sec-Websocket-Version'] in ('7', '8', '13'):
             self.ws_protocol = WebSocketProtocol17(self)
         elif "Sec-WebSocket-Version" in self.request.headers:
-            self.transport.write(cyclone.escape.utf8(
+            self.transport.write(cyclone_escape.utf8(
                 "HTTP/1.1 426 Upgrade Required\r\n"
                 "Sec-WebSocket-Version: 8\r\n\r\n"))
             self.transport.loseConnection()
@@ -144,9 +143,7 @@ class WebSocketHandler(cyclone.web.RequestHandler):
         self.ws_protocol.acceptConnection()
 
     def forbidConnection(self, message):
-        self.transport.write(
-            "HTTP/1.1 403 Forbidden\r\nContent-Length: %s\r\n\r\n%s" %
-            (str(len(message)), message))
+        self.transport.write(cyclone_escape.utf8("HTTP/1.1 403 Forbidden\r\nContent-Length: %s\r\n\r\n%s" % (str(len(message)), message)))
         return self.transport.loseConnection()
 
 
@@ -182,7 +179,7 @@ class WebSocketProtocol17(WebSocketProtocol):
         self._data_len = None
         self._header_index = None
 
-        self._message_buffer = ""
+        self._message_buffer = b''
 
     def acceptConnection(self):
         log.msg('Using ws spec (draft 17)')
@@ -196,19 +193,18 @@ class WebSocketProtocol17(WebSocketProtocol):
             origin = self.request.headers['Sec-Websocket-Origin']
 
         key = self.request.headers['Sec-Websocket-Key']
-        accept = base64.b64encode(hashlib.sha1("%s%s" %
-            (key, '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')).digest())
+        accept = base64.b64encode(hashlib.sha1(("%s%s" % (key, '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')).encode('utf-8')).digest())
 
         self.transport.write(
-            "HTTP/1.1 101 Web Socket Protocol Handshake\r\n"
-            "Upgrade: WebSocket\r\n"
-            "Connection: Upgrade\r\n"
-            "Sec-WebSocket-Accept: %s\r\n"
-            "Server: cyclone/%s\r\n"
-            "WebSocket-Origin: %s\r\n"
-            "WebSocket-Location: ws://%s%s\r\n\r\n" %
-            (accept, cyclone.version, origin,
-             self.request.host, self.request.path))
+            b"HTTP/1.1 101 Web Socket Protocol Handshake\r\n"
+            b"Upgrade: WebSocket\r\n"
+            b"Connection: Upgrade\r\n"
+            b"Sec-WebSocket-Accept: %s\r\n"
+            b"Server: cyclone/%s\r\n"
+            b"WebSocket-Origin: %s\r\n"
+            b"WebSocket-Location: ws://%s%s\r\n\r\n" %
+            (accept, cyclone_escape.utf8(cyclone.version), cyclone_escape.utf8(origin),
+             cyclone_escape.utf8(self.request.host), cyclone_escape.utf8(self.request.path)))
 
         self.handler._connectionMade()
 
@@ -234,7 +230,7 @@ class WebSocketProtocol17(WebSocketProtocol):
                     self.sendMessage(self._message_buffer, code=0x8A)
                 else:
                     self.handler.messageReceived(self._message_buffer)
-                self._message_buffer = ""
+                self._message_buffer = b''
 
             # if there is still data after this frame, process again
             current_len = self._frame_header_len + self._frame_payload_len
@@ -300,17 +296,15 @@ class WebSocketProtocol17(WebSocketProtocol):
             for k in range(0, self._frame_payload_len):
                 payload[k] ^= frame_mask_array[k % 4]
 
-            return str(payload)
+            return bytes(payload)
         else:
             return data[i:i+self._frame_payload_len]
 
     def sendMessage(self, message, code=0x81):
-        if isinstance(message, str):
-            message = message.encode('utf8')
+        message = cyclone_escape.utf8(message)
         length = len(message)
-        newFrame = []
+        newFrame = bytearray()
         newFrame.append(code)
-        newFrame = bytearray(newFrame)
         if length <= 125:
             newFrame.append(length)
         elif length > 125 and length < 65536:
@@ -319,9 +313,8 @@ class WebSocketProtocol17(WebSocketProtocol):
         elif length >= 65536:
             newFrame.append(127)
             newFrame += struct.pack('!Q', length)
-
         newFrame += message
-        self.transport.write(str(newFrame))
+        self.transport.write(bytes(newFrame))
 
 
 class WebSocketProtocol76(WebSocketProtocol):
@@ -353,14 +346,17 @@ class WebSocketProtocol76(WebSocketProtocol):
             self._protocol = 76
 
         self.transport.write(
-            "HTTP/1.1 101 Web Socket Protocol Handshake\r\n"
-            "Upgrade: WebSocket\r\n"
-            "Connection: Upgrade\r\n"
-            "Server: cyclone/%s\r\n"
-            "%s: %s\r\n"
-            "%s: ws://%s%s\r\n\r\n" %
-            (cyclone.version, ws_origin_header, self.request.headers["Origin"],
-             ws_location_header, self.request.host, self.request.path))
+            b"HTTP/1.1 101 Web Socket Protocol Handshake\r\n"
+            b"Upgrade: WebSocket\r\n"
+            b"Connection: Upgrade\r\n"
+            b"Server: cyclone/%s\r\n"
+            b"%s: %s\r\n"
+            b"%s: ws://%s%s\r\n\r\n" %
+            (cyclone_escape.utf8(cyclone.version), cyclone_escape.utf8(ws_origin_header),
+             cyclone_escape.utf8(self.request.headers["Origin"]),
+             cyclone_escape.utf8(ws_location_header),
+             cyclone_escape.utf8(self.request.host),
+             cyclone_escape.utf8(self.request.path)))
         self._postheader = True
 
     def _handleClientChallenge(self, data):
@@ -415,11 +411,11 @@ class WebSocketProtocol76(WebSocketProtocol):
             self.transport.loseConnection()
 
     def close(self):
-        self.transport.write('\xff\x00')
+        self.transport.write(b'\xff\x00')
         self.transport.loseConnection()
 
     def sendMessage(self, message):
-        self.transport.write("\x00%s\xff" % message)
+        self.transport.write(b"\x00%s\xff" % message)
 
     def _calculate_token(self, k1, k2, k3):
         token = struct.pack('>II8s', self._filterella(k1),
@@ -477,12 +473,12 @@ class Hixie76FrameDecoder(object):
 
     def _feed_byte(self, b):
         if self._state == self.WAIT_FOR_FRAME_TYPE:
-            if b == '\x00':
+            if b == b'\x00':
                 # start of a new frame
                 self._state = self.INSIDE_FRAME
                 self._frame = []
                 return None
-            elif b == '\xff':
+            elif b == b'\xff':
                 # start of a closing frame
                 self._state = self.WAIT_FOR_CLOSE
                 self._frame = []
@@ -491,17 +487,17 @@ class Hixie76FrameDecoder(object):
                 raise FrameDecodeError("Invalid byte '%r' while waiting for "
                                        "a new frame" % b)
         elif self._state == self.INSIDE_FRAME:
-            if b == '\xff':
+            if b == b'\xff':
                 # end of frame: reset state, form the new frame and return it
                 self._state = self.WAIT_FOR_FRAME_TYPE
-                frame = ''.join(self._frame)
+                frame = b''.join(self._frame)
                 self._frame = []
                 return frame
             else:
                 # accumulate frame data
                 self._frame.append(b)
         elif self._state == self.WAIT_FOR_CLOSE:
-            if b == '\x00':
+            if b == b'\x00':
                 # closing frame received
                 self._state = self.WAIT_FOR_FRAME_TYPE
                 self._frame = []
