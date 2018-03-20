@@ -109,8 +109,7 @@ class WebSocketHandler(cyclone.web.RequestHandler):
         """
         if isinstance(message, dict):
             message = cyclone_escape.json_encode(message)
-        message = cyclone_escape.utf8(message)
-        assert isinstance(message, bytes)
+        assert isinstance(message, str)
         self.ws_protocol.sendMessage(message)
 
     def _rawDataReceived(self, data):
@@ -415,7 +414,7 @@ class WebSocketProtocol76(WebSocketProtocol):
         self.transport.loseConnection()
 
     def sendMessage(self, message):
-        self.transport.write(b"\x00%s\xff" % message)
+        self.transport.write(b"\x00%s\xff" % cyclone_escape.utf8(message))
 
     def _calculate_token(self, k1, k2, k3):
         token = struct.pack('>II8s', self._filterella(k1),
