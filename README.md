@@ -11,6 +11,8 @@ Cyclone
 
 #### Welcome to fork.
 
+#### Due to Twisted doesn't support Python 3.7 so Cyclone3 can't be used with Python 3.7 too.
+
 &nbsp;
 
 
