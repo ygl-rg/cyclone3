@@ -5,7 +5,7 @@ Cyclone
 
 #### Status: all tests passed, so it ought to work (I have used it in production for a few months without problems)
 
-#### For the sake of simplicity, I removed the redis module (a.k.a texredisapi) which is quite outdated. 
+#### For the sake of simplicity, I removed the redis module (a.k.a txredisapi) which is quite outdated. 
 
 #### There are no test cases for websocket.
 
