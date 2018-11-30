@@ -5,13 +5,13 @@ Cyclone
 
 #### Status: all tests passed, so it ought to work (I have used it in production for a few months without problems)
 
-#### For the sake of simplicity, I removed the redis module (a.k.a txredisapi) which is quite outdated. 
+#### For the sake of simplicity, I removed the outdated redis module(you can install txredisapi separately). 
 
 #### There are no test cases for websocket.
 
 #### Welcome to fork.
 
-#### Due to Twisted doesn't support Python 3.7 so Cyclone3 can't be used with Python 3.7 too.
+#### use twisted 18.9 or later for python 3.7
 
 &nbsp;
 
