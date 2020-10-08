@@ -49,7 +49,6 @@ repository.
      $ cyclone app --project=foobar --appskel=signup
 """
 
-from __future__ import with_statement
 import base64
 import getopt
 import os

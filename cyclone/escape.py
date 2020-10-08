@@ -21,7 +21,7 @@ Also includes a few other miscellaneous string manipulation functions that
 have crept in over time.
 """
 
-from __future__ import absolute_import, division, with_statement
+
 from html import entities as html_entities
 import re
 import json

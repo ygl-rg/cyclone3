@@ -70,18 +70,6 @@ def import_object(name):
         raise ImportError("No method named %s" % parts[-1])
 
 
-# Fake byte literal support:  In python 2.6+, you can say b"foo" to get
-# a byte literal (str in 2.x, bytes in 3.x).  There's no way to do this
-# in a way that supports 2.5, though, so we need a function wrapper
-# to convert our string literals.  b() should only be applied to literal
-# latin1 strings.  Once we drop support for 2.5, we can remove this function
-# and just use byte literals.
-#def b(s):
-#    return s
-#
-#def u(s):
-#    return s.decode('unicode_escape')
-
 bytes_type = bytes
 unicode_type = str
 basestring_type = str

@@ -18,7 +18,6 @@
 
 import sys
 
-import cyclone.httpclient
 import cyclone.jsonrpc
 import cyclone.xmlrpc
 
@@ -40,9 +39,8 @@ class XmlrpcHandler(cyclone.xmlrpc.XmlrpcRequestHandler):
 
     @defer.inlineCallbacks
     def xmlrpc_geoip_lookup(self, address):
-        result = yield cyclone.httpclient.fetch(
-            "http://freegeoip.net/xml/%s" % address.encode("utf-8"))
-        defer.returnValue(result.body)
+        result = yield "test"
+        defer.returnValue(result)
 
 
 class JsonrpcHandler(cyclone.jsonrpc.JsonrpcRequestHandler):
@@ -57,9 +55,8 @@ class JsonrpcHandler(cyclone.jsonrpc.JsonrpcRequestHandler):
 
     @defer.inlineCallbacks
     def jsonrpc_geoip_lookup(self, address):
-        result = yield cyclone.httpclient.fetch(
-            "http://freegeoip.net/json/%s" % address.encode("utf-8"))
-        defer.returnValue(result.body)
+        result = yield "test"
+        defer.returnValue(result)
 
 
 def main():
