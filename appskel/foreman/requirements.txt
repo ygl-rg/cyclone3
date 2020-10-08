@@ -1,2 +1,2 @@
-Twisted==12.2.0
-cyclone==1.0-rc13
+Twisted
+cyclone
