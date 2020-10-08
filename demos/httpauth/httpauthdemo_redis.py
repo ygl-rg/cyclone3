@@ -20,7 +20,6 @@ import base64
 import functools
 import sys
 
-import cyclone.redis
 import cyclone.web
 
 from twisted.python import log
@@ -30,7 +29,7 @@ from twisted.internet import defer, reactor
 class Application(cyclone.web.Application):
     def __init__(self):
         # Defaults to localhost:6379, dbid=0
-        redisdb = cyclone.redis.lazyConnectionPool()
+        redisdb = None
 
         handlers = [
             (r"/", IndexHandler, dict(redisdb=redisdb)),
@@ -52,11 +51,6 @@ def HTTPBasic(method):
                 assert pwd == str(redis_pwd)  # it may come back as an int!
             except AssertionError:
                 msg = "Authentication failed"
-            except cyclone.redis.ConnectionError, e:
-                # There's nothing we can do here. Just wait for the
-                # connection to resume.
-                log.msg("Redis is unavailable: %s" % e)
-                raise cyclone.web.HTTPError(503)  # Service Unavailable
         else:
             msg = "Authentication required"
 

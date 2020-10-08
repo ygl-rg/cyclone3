@@ -17,7 +17,6 @@
 # under the License.
 
 import cyclone.escape
-import cyclone.redis
 import cyclone.sqlite
 import cyclone.util
 import cyclone.web
@@ -35,7 +34,7 @@ class BaseHandler(cyclone.web.RequestHandler):
         return self.settings.db_handlers.redis
 
     def get_current_user(self):
-        print "Getting user cookie"
+        print("Getting user cookie")
         return self.get_secure_cookie("user")
 
 
@@ -63,7 +62,7 @@ def auth_login(cli):
 
     try:
         redis_pwd = yield cli.redisdb.get("cyclone:%s" % usr)
-    except Exception, e:
+    except Exception as e:
         log.msg("Redis failed to get('cyclone:%s'): %s" % (usr, str(e)))
         raise cyclone.web.HTTPError(503)  # Service Unavailable
 
@@ -91,13 +90,13 @@ def private(cli):
 
 class WebSocketHandler(cyclone.websocket.WebSocketHandler):
     def connectionMade(self, *args, **kwargs):
-        print "connection made:", args, kwargs
+        print("connection made:", args, kwargs)
 
     def messageReceived(self, message):
         self.sendMessage("echo: %s" % message)
 
     def connectionLost(self, why):
-        print "connection lost:", why
+        print("connection lost:", why)
 
 
 class XmlrpcHandler(cyclone.xmlrpc.XmlrpcRequestHandler):
@@ -112,7 +111,7 @@ try:
     from twisted.python.logfile import DailyLogFile
     logFile = DailyLogFile.fromFullPath("server.log")
     print("Logging to daily log file: server.log")
-except Exception, e:
+except Exception as e:
     import sys
     logFile = sys.stdout
 
@@ -127,7 +126,7 @@ run(host="127.0.0.1", port=8888,
     base_handler=BaseHandler,
     db_handlers=cyclone.util.ObjectDict(
         #sqlite=cyclone.sqlite.InlineSQLite(":memory:"),
-        redis=cyclone.redis.lazyConnectionPool(),
+        redis=None,
     ),
     more_handlers=[
         (r"/websocket", WebSocketHandler),
