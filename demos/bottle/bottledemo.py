@@ -17,7 +17,6 @@
 # under the License.
 
 import cyclone.escape
-import cyclone.sqlite
 import cyclone.util
 import cyclone.web
 import cyclone.websocket

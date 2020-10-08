@@ -16,7 +16,7 @@
 from cyclone.httpserver import HTTPRequest, HTTPConnection
 from cyclone.web import decode_signed_value
 from cyclone.httputil import HTTPHeaders
-import urllib
+from urllib import parse as urllib_parse
 from twisted.test import proto_helpers
 from twisted.internet.defer import inlineCallbacks, returnValue
 from http.cookies import SimpleCookie
@@ -89,10 +89,10 @@ class Client(object):
     def request(self, method, uri, *args, **kwargs):
         params = kwargs.pop("params", {}) or {}
         if method in ["GET", "HEAD", "OPTIONS"] and params:
-            uri = uri + "?" + urllib.urlencode(params)
+            uri = uri + "?" + urllib_parse.urlencode(params)
         elif method in ["POST", "PATCH", "PUT"]\
                 and params and not kwargs['body']:
-            kwargs['body'] = urllib.urlencode(params)
+            kwargs['body'] = urllib_parse.urlencode(params)
         connection = kwargs.pop('connection')
         if not connection:
             connection = HTTPConnection()

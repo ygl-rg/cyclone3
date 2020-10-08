@@ -2173,7 +2173,7 @@ def _time_independent_equals(a, b):
     if len(a) != len(b):
         return False
     result = 0
-    if isinstance(a[0], types.IntType):  # python3 byte strings
+    if isinstance(a[0], int):  # python3 byte strings
         for x, y in zip(a, b):
             result |= x ^ y
     else:  # python2
@@ -2186,14 +2186,14 @@ def create_signed_value(secret, name, value):
     timestamp = utf8(str(int(time.time())))
     value = base64.b64encode(utf8(value))
     signature = _create_signature(secret, name, value, timestamp)
-    value = "|".join([value, timestamp, signature])
+    value = b"|".join([value, timestamp, signature])
     return value
 
 
-def decode_signed_value(secret, name, value, max_age_days=31):
+def decode_signed_value(secret, name, value, max_age_days=31) -> bytes:
     if not value:
         return None
-    parts = utf8(value).split("|")
+    parts = utf8(value).split(b"|")
     if len(parts) != 3:
         return None
     signature = _create_signature(secret, name, parts[0], parts[1])
@@ -2212,7 +2212,7 @@ def decode_signed_value(secret, name, value, max_age_days=31):
         # here instead of modifying _cookie_signature.
         log.msg("Cookie timestamp in future; possible tampering %r" % value)
         return None
-    if parts[1].startswith("0"):
+    if parts[1].startswith(b"0"):
         log.msg("Tampered cookie %r" % value)
         return None
     try:
@@ -2221,7 +2221,7 @@ def decode_signed_value(secret, name, value, max_age_days=31):
         return None
 
 
-def _create_signature(secret, *parts):
+def _create_signature(secret: str, *parts) -> bytes:
     hash = hmac.new(utf8(secret), digestmod=hashlib.sha1)
     for part in parts:
         hash.update(utf8(part))

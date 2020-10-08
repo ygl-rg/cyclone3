@@ -22,29 +22,29 @@ from twisted.internet.defer import inlineCallbacks
 
 class TestHandler(RequestHandler):
     def get(self):
-        self.write("Something")
+        self.write(b"Something")
 
     def post(self):
-        self.write("Something posted")
+        self.write(b"Something posted")
 
     def put(self):
-        self.write("Something put")
+        self.write(b"Something put")
 
     def head(self):
-        self.write("")
+        self.write(b"")
 
     def delete(self):
-        self.write("")
+        self.write(b"")
 
 
 class DeferredTestHandler(RequestHandler):
     @asynchronous
     def get(self):
-        self.write("Something...")
+        self.write(b"Something...")
         reactor.callLater(0.1, self.do_something)
 
     def do_something(self):
-        self.write("done!")
+        self.write(b"done!")
         self.finish()
 
 
@@ -87,43 +87,43 @@ class TestClient(unittest.TestCase):
     @inlineCallbacks
     def test_get_request(self):
         response = yield self.client.get("/testing/")
-        self.assertEqual(response.content, "Something")
+        self.assertEqual(response.content, b"Something")
         self.assertTrue(len(response.headers) > 3)
 
     @inlineCallbacks
     def test_get_request_with_params(self):
         response = yield self.client.get("/testing/", {"q": "query"})
-        self.assertEqual(response.content, "Something")
+        self.assertEqual(response.content, b"Something")
         self.assertTrue(len(response.headers) > 3)
 
     @inlineCallbacks
     def test_post_request(self):
         response = yield self.client.post("/testing/")
-        self.assertEqual(response.content, "Something posted")
+        self.assertEqual(response.content, b"Something posted")
         self.assertTrue(len(response.headers) > 3)
 
     @inlineCallbacks
     def test_put_request(self):
         response = yield self.client.put("/testing/")
-        self.assertEqual(response.content, "Something put")
+        self.assertEqual(response.content, b"Something put")
         self.assertTrue(len(response.headers) > 3)
 
     @inlineCallbacks
     def test_head_request(self):
         response = yield self.client.head("/testing/")
-        self.assertEqual(response.content, "")
+        self.assertEqual(response.content, b"")
         self.assertTrue(len(response.headers) > 3)
 
     @inlineCallbacks
     def test_delete_request(self):
         response = yield self.client.delete("/testing/")
-        self.assertEqual(response.content, "")
+        self.assertEqual(response.content, b"")
         self.assertTrue(len(response.headers) > 3)
 
     @inlineCallbacks
     def test_get_deferred_request(self):
         response = yield self.client.get("/deferred_testing/")
-        self.assertEqual(response.content, "Something...done!")
+        self.assertEqual(response.content, b"Something...done!")
         self.assertTrue(len(response.headers) > 3)
 
     @inlineCallbacks
@@ -131,8 +131,8 @@ class TestClient(unittest.TestCase):
         response = yield self.client.get("/cookie_testing/")
         self.assertEqual(
             self.client.cookies.get_secure_cookie("test_cookie"),
-            "test_value"
+            b"test_value"
         )
 
         response = yield self.client.post("/cookie_testing/")
-        self.assertEqual(response.content, "test_value")
+        self.assertEqual(response.content, b"test_value")
