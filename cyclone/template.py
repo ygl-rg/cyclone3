@@ -184,8 +184,6 @@ with ``{# ... #}``.
     ``{% continue %}`` may be used inside the loop.
 """
 
-from __future__ import absolute_import, division, with_statement
-
 import collections
 import contextlib
 import datetime

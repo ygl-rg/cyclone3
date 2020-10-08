@@ -22,7 +22,6 @@ For more information, check out the `e-mail demo
 <https://github.com/fiorix/cyclone/tree/master/demos/email>`_.
 """
 
-import types
 import os.path
 
 from io import StringIO

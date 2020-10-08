@@ -19,28 +19,9 @@
 import sys
 
 import cyclone.jsonrpc
-import cyclone.xmlrpc
 
 from twisted.python import log
 from twisted.internet import defer, reactor
-
-
-class XmlrpcHandler(cyclone.xmlrpc.XmlrpcRequestHandler):
-    allowNone = True
-
-    def xmlrpc_echo(self, text):
-        return text
-
-    def xmlrpc_sort(self, items):
-        return sorted(items)
-
-    def xmlrpc_count(self, items):
-        return len(items)
-
-    @defer.inlineCallbacks
-    def xmlrpc_geoip_lookup(self, address):
-        result = yield "test"
-        defer.returnValue(result)
 
 
 class JsonrpcHandler(cyclone.jsonrpc.JsonrpcRequestHandler):
@@ -62,7 +43,6 @@ class JsonrpcHandler(cyclone.jsonrpc.JsonrpcRequestHandler):
 def main():
     log.startLogging(sys.stdout)
     application = cyclone.web.Application([
-        (r"/xmlrpc", XmlrpcHandler),
         (r"/jsonrpc", JsonrpcHandler),
     ])
 

@@ -29,8 +29,6 @@ This module also defines the `HTTPRequest` class which is exposed via
 `cyclone.web.RequestHandler.request`.
 """
 
-from __future__ import absolute_import, division, with_statement
-
 
 from http import cookies as http_cookies
 import socket

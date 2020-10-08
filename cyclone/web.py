@@ -50,9 +50,6 @@ using threads, please check the twisted documentation:
 http://twistedmatrix.com/documents/current/core/howto/threading.html
 """
 
-from __future__ import absolute_import, division, with_statement
-
-#import Cookie
 from http import cookies as http_cookies
 from http import client as http_client
 import base64
@@ -75,8 +72,6 @@ import threading
 import time
 import traceback
 import types
-import urllib
-#import urlparse
 from urllib import parse as urllib_parse
 import uuid
 
@@ -2169,16 +2164,12 @@ class URLSpec(object):
 url = URLSpec
 
 
-def _time_independent_equals(a, b):
+def _time_independent_equals(a, b) -> bool:
     if len(a) != len(b):
         return False
     result = 0
-    if isinstance(a[0], int):  # python3 byte strings
-        for x, y in zip(a, b):
-            result |= x ^ y
-    else:  # python2
-        for x, y in zip(a, b):
-            result |= ord(x) ^ ord(y)
+    for x, y in zip(a, b):
+        result |= x ^ y
     return result == 0
 
 
