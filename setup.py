@@ -72,11 +72,9 @@ setup(
                 "A facebook's Tornado on top of Twisted.",
     keywords="python non-blocking web server twisted facebook tornado",
     packages=["cyclone", "twisted.plugins", "cyclone.tests", "cyclone.testing"],
-    package_data={"twisted": ["plugins/cyclone_plugin.py"],
-                  "cyclone": ["appskel_default.zip",
-                              "appskel_foreman.zip",
-                              "appskel_signup.zip"]},
-    scripts=["scripts/cyclone"],
+    package_data={"twisted": [],
+                  "cyclone": []},
+    scripts=[],
     **extra
 )
 
