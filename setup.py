@@ -22,6 +22,7 @@ from distutils.version import LooseVersion
 from distutils.version import StrictVersion
 
 requires = ["twisted", "pyopenssl"]
+extra = dict(extras_require={'ssl': requires})
 
 py_version = platform.python_version()
 
@@ -29,11 +30,10 @@ py_version = platform.python_version()
 if platform.python_implementation().lower().startswith("pypy"):
     import distutils.core
     setup = distutils.core.setup
-    extra = dict(extras_require={'ssl': requires})
+
 else:
     import setuptools
     setup = setuptools.setup
-    extra = dict(extras_require={'ssl': requires})
 
     try:
         from setuptools.command import egg_info
@@ -71,16 +71,10 @@ setup(
     description="Non-blocking web server. "
                 "A facebook's Tornado on top of Twisted.",
     keywords="python non-blocking web server twisted facebook tornado",
-    packages=["cyclone", "twisted.plugins", "cyclone.tests", "cyclone.testing"],
+    packages=["cyclone", "cyclone.tests", "cyclone.testing"],
     package_data={"twisted": [],
                   "cyclone": []},
     scripts=[],
     **extra
 )
 
-try:
-    from twisted.plugin import IPlugin, getPlugins
-    list(getPlugins(IPlugin))
-except Exception as e:
-    log.warn("*** Failed to update Twisted plugin cache. ***")
-    log.warn(str(e))
