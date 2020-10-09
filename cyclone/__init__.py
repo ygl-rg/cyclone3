@@ -16,4 +16,4 @@
 # under the License.
 
 __author__ = "Alexandre Fiori"
-__version__ = version = "git-2013042301"
+__version__ = version = "2020.10.1"
